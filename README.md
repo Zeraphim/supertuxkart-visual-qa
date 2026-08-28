@@ -2,6 +2,8 @@
 
 A vision-language-model and CLIP-style retrieval project for answering questions about SuperTuxKart race scenes.
 
+![Saved VLM result card: Beastie is in front of and right of the ego car](assets/vqa_demo.png)
+
 ## What it does
 
 The pipeline turns SuperTuxKart scene metadata into two training datasets:
@@ -49,7 +51,18 @@ python -m homework.clip test clip_model
 
 ## Demo plan
 
-For a LinkedIn video, capture a 20–30 second sequence of game frames. Overlay each question and the model's answer, then close with a VLM-versus-CLIP result card. Do not present the supplied game footage as an agent playing the game: this project understands race scenes; it does not control the kart.
+Create a presentation-ready result card from a saved VLM checkpoint:
+
+```bash
+python -m homework.demo \
+  --info-file data/valid/00000_info.json \
+  --view-index 0 \
+  --question-index 5 \
+  --model vlm_model \
+  --output artifacts/vqa_demo.png
+```
+
+The displayed example correctly answers: “Where is beastie relative to the ego car?” → “front and right.” The command saves a game frame with the question, model answer, and reference answer. Change `--question-index` to choose another generated question for the same frame. Use `Command` + `Shift` + `5` to record multiple result cards for a 20–30 second LinkedIn video, then close with the VLM-versus-CLIP result card. Do not present the supplied game footage as an agent playing the game: this project understands race scenes; it does not control the kart.
 
 ## Limitations
 
